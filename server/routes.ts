@@ -1,8 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
-import { storage } from "./storage";
-import { notificationService } from "./notification-service";
+import { storage } from "./storage.js";
+import { notificationService } from "./notification-service.js";
 import { 
   insertCartItemSchema, 
   insertOrderSchema, 
@@ -13,7 +13,7 @@ import {
   insertOrderStatusUpdateSchema,
   insertAnalyticsEventSchema,
   insertCateringOrderSchema
-} from "@shared/schema";
+} from "../shared/schema.js";
 import { z } from "zod";
 import Stripe from "stripe";
 
@@ -23,6 +23,16 @@ if (!process.env.STRIPE_SECRET_KEY) {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint
+  app.get("/api/health", (req, res) => {
+    res.json({ 
+      status: "ok", 
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      version: process.env.npm_package_version || "1.0.0"
+    });
+  });
+
   // Menu Items
   app.get("/api/menu-items", async (req, res) => {
     try {
