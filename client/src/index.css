@@ -1,0 +1,355 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Royal Spice Palace Theme - Checkpoint 2 Restoration */
+  --background: hsl(220, 35%, 8%);
+  --background-gradient: linear-gradient(135deg, hsl(220, 35%, 8%) 0%, hsl(280, 30%, 12%) 100%);
+  --foreground: hsl(50, 25%, 98%);
+  --muted: hsl(240, 25%, 15%);
+  --muted-foreground: hsl(220, 18%, 72%);
+  --popover: hsl(240, 30%, 10%);
+  --popover-foreground: hsl(50, 25%, 98%);
+  --card: hsl(240, 28%, 12%);
+  --card-gradient: linear-gradient(135deg, hsl(240, 28%, 12%) 0%, hsl(260, 25%, 15%) 100%);
+  --card-foreground: hsl(50, 20%, 95%);
+  --border: hsl(280, 45%, 28%);
+  --input: hsl(240, 35%, 18%);
+  --primary: hsl(45, 100%, 62%);
+  --primary-gradient: linear-gradient(135deg, hsl(45, 100%, 62%) 0%, hsl(30, 95%, 58%) 100%);
+  --primary-foreground: hsl(240, 35%, 12%);
+  --secondary: hsl(280, 35%, 22%);
+  --secondary-foreground: hsl(50, 20%, 92%);
+  --accent: hsl(280, 85%, 52%);
+  --accent-gradient: linear-gradient(135deg, hsl(280, 85%, 52%) 0%, hsl(320, 75%, 48%) 100%);
+  --accent-foreground: hsl(50, 25%, 98%);
+  --destructive: hsl(0, 88%, 62%);
+  --destructive-foreground: hsl(50, 25%, 98%);
+  --ring: hsl(45, 100%, 62%);
+  --radius: 1rem;
+  
+  /* Glow and Shadow Effects - Royal Spice Palace */
+  --glow-primary: 0 0 25px hsla(45, 100%, 62%, 0.4);
+  --glow-accent: 0 0 20px hsla(280, 85%, 52%, 0.3);
+  --glow-emerald: 0 0 15px hsla(160, 85%, 55%, 0.4);
+  --shadow-card: 0 8px 32px hsla(240, 50%, 5%, 0.6);
+  --shadow-hover: 0 12px 48px hsla(45, 100%, 62%, 0.15);
+  
+  /* Restaurant specific colors - Elegant Dark Theme */
+  --restaurant-50: hsl(40, 30%, 95%);
+  --restaurant-100: hsl(38, 35%, 88%);
+  --restaurant-200: hsl(36, 40%, 78%);
+  --restaurant-300: hsl(34, 45%, 65%);
+  --restaurant-400: hsl(32, 55%, 52%);
+  --restaurant-500: hsl(30, 65%, 42%);
+  --restaurant-600: hsl(28, 70%, 35%);
+  --restaurant-700: hsl(26, 75%, 28%);
+  --restaurant-800: hsl(24, 80%, 22%);
+  --restaurant-900: hsl(22, 85%, 15%);
+  --restaurant-950: hsl(20, 90%, 8%);
+}
+
+.dark {
+  --background: hsl(224, 71.4%, 4.1%);
+  --foreground: hsl(210, 20%, 98%);
+  --muted: hsl(215, 27.9%, 16.9%);
+  --muted-foreground: hsl(217.9, 10.6%, 64.9%);
+  --popover: hsl(224, 71.4%, 4.1%);
+  --popover-foreground: hsl(210, 20%, 98%);
+  --card: hsl(224, 71.4%, 4.1%);
+  --card-foreground: hsl(210, 20%, 98%);
+  --border: hsl(215, 27.9%, 16.9%);
+  --input: hsl(215, 27.9%, 16.9%);
+  --primary: hsl(210, 20%, 98%);
+  --primary-foreground: hsl(220.9, 39.3%, 11%);
+  --secondary: hsl(215, 27.9%, 16.9%);
+  --secondary-foreground: hsl(210, 20%, 98%);
+  --accent: hsl(215, 27.9%, 16.9%);
+  --accent-foreground: hsl(210, 20%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(210, 20%, 98%);
+  --ring: hsl(216, 12.2%, 83.9%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased text-foreground;
+    background: var(--background-gradient, var(--background));
+    min-height: 100vh;
+  }
+
+  /* Enhanced Visual Effects */
+  .gradient-text {
+    background: var(--primary-gradient, var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  .glow-emerald {
+    box-shadow: var(--glow-emerald);
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      var(--card) 0%,
+      var(--primary) 50%,
+      var(--card) 100%
+    );
+    background-size: 200% 100%;
+  }
+
+  .card-enhanced {
+    background: var(--card-gradient, var(--card));
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+  }
+
+  .card-enhanced:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  .btn-primary-enhanced {
+    background: var(--primary-gradient, var(--primary));
+    color: var(--primary-foreground);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary-enhanced:hover {
+    box-shadow: var(--glow-primary);
+    transform: translateY(-2px);
+  }
+
+  .logo-glow {
+    filter: drop-shadow(0 0 15px hsla(45, 100%, 62%, 0.6));
+    transition: all 0.5s ease;
+  }
+
+  .logo-glow:hover {
+    filter: drop-shadow(0 0 25px hsla(45, 100%, 62%, 0.8));
+    transform: scale(1.05);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Lazy loading and performance optimization */
+  .lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .lazy-load.loaded {
+    opacity: 1;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --primary: hsl(45, 100%, 70%);
+      --background: hsl(0, 0%, 0%);
+      --foreground: hsl(0, 0%, 100%);
+      --muted-foreground: hsl(0, 0%, 85%);
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-bounce-subtle,
+    .animate-shimmer,
+    .animate-spin-slow {
+      animation: none;
+    }
+  }
+
+  /* Click-to-call button styling */
+  .click-to-call {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .click-to-call:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  /* WhatsApp button styling */
+  .whatsapp-btn {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000;
+    background: #25D366;
+    transition: all 0.3s ease;
+  }
+
+  .whatsapp-btn:hover {
+    background: #20b85a;
+    transform: scale(1.1);
+  }
+
+  /* Newsletter signup form */
+  .newsletter-glow {
+    box-shadow: 0 0 30px hsla(45, 100%, 62%, 0.3);
+  }
+
+  /* Special offers banner */
+  .offers-banner {
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    animation: slideIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Review stars animation */
+  .star-rating {
+    color: #fbbf24;
+    animation: starGlow 2s infinite alternate;
+  }
+
+  @keyframes starGlow {
+    0% { filter: drop-shadow(0 0 5px #fbbf24); }
+    100% { filter: drop-shadow(0 0 10px #fbbf24); }
+  }
+
+  /* Map integration styles */
+  .map-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75rem;
+  }
+
+  .map-overlay {
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .map-overlay:hover {
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+
+  /* Enhanced Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      @apply px-3 sm:px-4;
+    }
+    
+    .card-enhanced {
+      @apply p-4 sm:p-6;
+    }
+    
+    /* Better button sizing on mobile */
+    .btn-primary-enhanced {
+      @apply text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3;
+    }
+    
+    /* Improved table responsiveness */
+    .table-responsive {
+      @apply overflow-x-auto;
+    }
+    
+    /* Enhanced grid layouts */
+    .grid-responsive {
+      @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
+    }
+    
+    /* Mobile navigation improvements */
+    .mobile-nav {
+      @apply flex flex-col space-y-2;
+    }
+    
+    /* Better text scaling */
+    h1 {
+      @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl !important;
+    }
+    
+    h2 {
+      @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl !important;
+    }
+    
+    h3 {
+      @apply text-lg sm:text-xl md:text-2xl lg:text-3xl !important;
+    }
+    
+    /* Mobile-first card layouts */
+    .mobile-card {
+      @apply w-full max-w-none;
+    }
+  }
+  
+  /* Tablet optimizations */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .tablet-optimized {
+      @apply px-6 py-4;
+    }
+  }
+  
+  /* Large screen optimizations */
+  @media (min-width: 1440px) {
+    .large-screen {
+      @apply max-w-7xl mx-auto;
+    }
+  }
+}
+
+@layer utilities {
+  .restaurant-50 { @apply bg-[var(--restaurant-50)] text-[var(--restaurant-900)]; }
+  .restaurant-100 { @apply bg-[var(--restaurant-100)] text-[var(--restaurant-900)]; }
+  .restaurant-200 { @apply bg-[var(--restaurant-200)] text-[var(--restaurant-900)]; }
+  .restaurant-300 { @apply bg-[var(--restaurant-300)] text-[var(--restaurant-900)]; }
+  .restaurant-400 { @apply bg-[var(--restaurant-400)] text-white; }
+  .restaurant-500 { @apply bg-[var(--restaurant-500)] text-white; }
+  .restaurant-600 { @apply bg-[var(--restaurant-600)] text-white; }
+  .restaurant-700 { @apply bg-[var(--restaurant-700)] text-white; }
+  .restaurant-800 { @apply bg-[var(--restaurant-800)] text-white; }
+  .restaurant-900 { @apply bg-[var(--restaurant-900)] text-white; }
+  
+  .text-restaurant-50 { @apply text-[var(--restaurant-50)]; }
+  .text-restaurant-100 { @apply text-[var(--restaurant-100)]; }
+  .text-restaurant-200 { @apply text-[var(--restaurant-200)]; }
+  .text-restaurant-300 { @apply text-[var(--restaurant-300)]; }
+  .text-restaurant-400 { @apply text-[var(--restaurant-400)]; }
+  .text-restaurant-500 { @apply text-[var(--restaurant-500)]; }
+  .text-restaurant-600 { @apply text-[var(--restaurant-600)]; }
+  .text-restaurant-700 { @apply text-[var(--restaurant-700)]; }
+  .text-restaurant-800 { @apply text-[var(--restaurant-800)]; }
+  .text-restaurant-900 { @apply text-[var(--restaurant-900)]; }
+  
+  .border-restaurant-200 { @apply border-[var(--restaurant-200)]; }
+  .border-restaurant-300 { @apply border-[var(--restaurant-300)]; }
+}

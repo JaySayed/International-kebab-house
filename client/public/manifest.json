@@ -1,0 +1,26 @@
+{
+  "name": "International Kabab House",
+  "short_name": "Kabab House",
+  "description": "Authentic Afghan & Middle Eastern Cuisine in Stone Mountain, GA",
+  "theme_color": "#f59e0b",
+  "background_color": "#1a1a2e",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["food", "business", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr"
+}
