@@ -11,12 +11,11 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'dist/public',
+    outDir: '../dist/public',
     rollupOptions: {
-      input: './client/index.html'
+      input: './index.html'
     }
   },
-  root: './client',
   server: {
     port: 5173,
     host: '0.0.0.0'
