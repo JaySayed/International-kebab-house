@@ -1,5 +1,5 @@
-import { storage } from "./storage";
-import type { InsertNotification, Order, Customer } from "@shared/schema";
+import { storage } from "./storage.js";
+import type { InsertNotification, Order, Customer } from "../shared/schema.js";
 import { WebSocket } from "ws";
 
 export class NotificationService {

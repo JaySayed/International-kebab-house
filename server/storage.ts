@@ -32,8 +32,8 @@ import {
   type InsertAnalyticsEvent,
   type InsertCateringOrder,
   type InsertNotification
-} from "../shared/schema";
-import { db } from "./db";
+} from "../shared/schema.js";
+import { db } from "./db.js";
 import { eq, desc, and, count } from "drizzle-orm";
 
 export interface IStorage {
