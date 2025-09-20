@@ -1,6 +1,6 @@
 'use client';
 
-import logoImage from '@assets/IMG_0247_1753076429818.jpeg';
+import logoImage from '@assets/IMG_0252_1753076429818.jpeg';
 
 // Import food images from Menu page
 import qabuliPulaoImg from "@assets/generated_images/Qabuli_Pulao_dish_544cb5b2.png";

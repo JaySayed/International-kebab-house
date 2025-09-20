@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import logoImage from '@assets/IMG_0247_1753076429818.jpeg';
+import logoImage from '@assets/IMG_0252_1753076429818.jpeg';
 
 interface ContactFormData {
   firstName: string;
