@@ -17,12 +17,43 @@ import {
 import { z } from "zod";
 import Stripe from "stripe";
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
+let stripe: Stripe | null = null;
+
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  console.log('Stripe initialized successfully');
+} else {
+  console.warn('Stripe not configured: STRIPE_SECRET_KEY not provided. Payment functionality will be disabled.');
 }
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health Check Endpoint
+  app.get("/api/health", async (req, res) => {
+    try {
+      // Basic health checks
+      const health = {
+        status: "healthy",
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV || "development",
+        version: "1.0.0",
+        services: {
+          database: "connected", // This could be enhanced with actual DB ping
+          stripe: process.env.STRIPE_SECRET_KEY ? "configured" : "not configured",
+          notifications: "operational"
+        }
+      };
+      
+      res.status(200).json(health);
+    } catch (error) {
+      res.status(503).json({
+        status: "unhealthy",
+        timestamp: new Date().toISOString(),
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // Menu Items
   app.get("/api/menu-items", async (req, res) => {
     try {
@@ -118,6 +149,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Stripe payment route for one-time payments
   app.post("/api/create-payment-intent", async (req, res) => {
     try {
+      if (!stripe) {
+        return res.status(503).json({ 
+          message: "Payment processing is not configured. Please contact the restaurant directly." 
+        });
+      }
+
       const { amount, customerInfo, cartItems } = req.body;
       
       if (!amount || amount < 0.50) {

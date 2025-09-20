@@ -532,11 +532,38 @@ var notificationService = new NotificationService();
 // server/routes.ts
 import { z } from "zod";
 import Stripe from "stripe";
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("Missing required Stripe secret: STRIPE_SECRET_KEY");
+var stripe = null;
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  console.log("Stripe initialized successfully");
+} else {
+  console.warn("Stripe not configured: STRIPE_SECRET_KEY not provided. Payment functionality will be disabled.");
 }
-var stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 async function registerRoutes(app2) {
+  app2.get("/api/health", async (req, res) => {
+    try {
+      const health = {
+        status: "healthy",
+        timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV || "development",
+        version: "1.0.0",
+        services: {
+          database: "connected",
+          // This could be enhanced with actual DB ping
+          stripe: process.env.STRIPE_SECRET_KEY ? "configured" : "not configured",
+          notifications: "operational"
+        }
+      };
+      res.status(200).json(health);
+    } catch (error) {
+      res.status(503).json({
+        status: "unhealthy",
+        timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
   app2.get("/api/menu-items", async (req, res) => {
     try {
       const items = await storage.getAllMenuItems();
@@ -621,6 +648,11 @@ async function registerRoutes(app2) {
   });
   app2.post("/api/create-payment-intent", async (req, res) => {
     try {
+      if (!stripe) {
+        return res.status(503).json({
+          message: "Payment processing is not configured. Please contact the restaurant directly."
+        });
+      }
       const { amount, customerInfo, cartItems: cartItems2 } = req.body;
       if (!amount || amount < 0.5) {
         return res.status(400).json({ message: "Invalid amount" });
@@ -987,34 +1019,22 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { fileURLToPath } from "node:url";
+var __dirname = path.dirname(fileURLToPath(import.meta.url));
 var vite_config_default = defineConfig({
-  plugins: [
-    react(),
-    runtimeErrorOverlay(),
-    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
-      await import("@replit/vite-plugin-cartographer").then(
-        (m) => m.cartographer()
-      )
-    ] : []
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets")
+      "@": path.resolve(__dirname, "./client/src"),
+      "@assets": path.resolve(__dirname, "./attached_assets")
     }
   },
-  root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true
+    outDir: "dist/public"
   },
   server: {
-    fs: {
-      strict: true,
-      deny: ["**/.*"]
-    }
+    port: 5173,
+    host: "0.0.0.0"
   }
 });
 

@@ -1,0 +1,54 @@
+{
+  "name": "International Kabab House",
+  "description": "Afghan & Middle Eastern Restaurant Platform - Full-stack React & Express.js application",
+  "keywords": ["restaurant", "food", "ordering", "afghan", "middle-eastern"],
+  "website": "https://github.com/JaySayed/International-kebab-house",
+  "repository": "https://github.com/JaySayed/International-kebab-house",
+  "success_url": "/",
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini",
+      "as": "DATABASE"
+    }
+  ],
+  "env": {
+    "NODE_ENV": {
+      "value": "production"
+    },
+    "SESSION_SECRET": {
+      "description": "Secret key for session management",
+      "generator": "secret"
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe secret key for payment processing",
+      "required": false
+    },
+    "STRIPE_PUBLISHABLE_KEY": {
+      "description": "Stripe publishable key for payment processing",
+      "required": false
+    },
+    "SENDGRID_API_KEY": {
+      "description": "SendGrid API key for email notifications",
+      "required": false
+    },
+    "FROM_EMAIL": {
+      "description": "From email address for notifications",
+      "required": false
+    }
+  },
+  "scripts": {
+    "postdeploy": "npm run db:push"
+  }
+}
