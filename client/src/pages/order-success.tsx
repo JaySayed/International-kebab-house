@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocation } from "wouter";
-import logoImage from '@assets/IMG_0247_1753076429818.jpeg';
+import logoImage from '@assets/IMG_0252_1753076429818.jpeg';
 
 export default function OrderSuccess() {
   const [, setLocation] = useLocation();

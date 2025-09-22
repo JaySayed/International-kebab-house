@@ -1,15 +1,15 @@
 'use client';
 
 // Restaurant photos and interior images
-import restaurantExterior from "@assets/IMG_0230_1756598591783.jpeg";
-import restaurantInterior1 from "@assets/IMG_0245_1756598591783.jpeg";
-import logoImage from "@assets/IMG_0252_1756598591783.jpeg";
-import kitchenArea from "@assets/IMG_0197_1756598591783.jpeg";
-import diningArea from "@assets/IMG_0194_1756598591783.jpeg";
-import foodDisplay from "@assets/IMG_0275_1756598591783.jpeg";
-import restaurantSign from "@assets/IMG_0189_1756598591783.jpeg";
+import restaurantExterior from "@assets/IMG_0232_1756598591783.jpeg";
+import restaurantInterior1 from "@assets/IMG_0232_1756598591783.jpeg";
+import logoImage from "@assets/IMG_0252_1753076429818.jpeg";
+import kitchenArea from "@assets/IMG_0232_1756598591783.jpeg";
+import diningArea from "@assets/IMG_0232_1756598591783.jpeg";
+import foodDisplay from "@assets/IMG_0232_1756598591783.jpeg";
+import restaurantSign from "@assets/IMG_0232_1756598591783.jpeg";
 import interiorView from "@assets/IMG_0232_1756598591783.jpeg";
-import frontView from "@assets/IMG_0218_1756598591783.jpeg";
+import frontView from "@assets/IMG_0232_1756598591783.jpeg";
 
 // Import new components
 import VirtualMenuPreview from "@/components/VirtualMenuPreview";
